@@ -1,6 +1,7 @@
 const startButton = document.getElementById('start-btn')
 const head = document.getElementById('heading')
 const text = document.getElementById('text')
+const text_right = document.getElementById('correctness')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
@@ -8,7 +9,6 @@ const answerButtonsElement = document.getElementById('answer-buttons')
 
 
 startButton.addEventListener('click', startGame)
-questionCounter = 0
 
 
 function startGame() {
@@ -16,21 +16,29 @@ function startGame() {
     head.classList.add('hide')
     text.classList.add('hide')
     questionContainerElement.classList.remove('hide')
-    function countDown(i) {
-        var int = setInterval(function () {
-            document.getElementById("timer").innerHTML = "Time: " + i;
-            i-- || clearInterval(int);  //if i is 0, then stop the interval
-        }, 1000);
-    }
-    countDown(73);
-    setNextQuestion()
+    questionCounter = 0
+    // function countDown(i) {
+    //     var int = setInterval(function () {
+    //         document.getElementById("timer").innerHTML = "Time: " + i;
+    //         i-- || clearInterval(int);  //if i is 0, then stop the interval
+    //     }, 1000);
+    // }
+    // countDown(73);
+    
 }
 
-answerButtonsElement.addEventListener('click', () => {
-    questionCounter++
-    setNextQuestion()
-})
 
+answerButtonsElement.addEventListener('click', () => {
+    if (questions.length > questionCounter) {
+        setNextQuestion() //only call this if there's another question!
+        questionCounter++
+    } else {
+        endQuiz() //the last question has been answered. 
+        //we just have to write this function to handle the end-of-quiz logic!
+    }
+
+
+})
 
 function setNextQuestion() {
     resetState()
@@ -78,8 +86,10 @@ function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
         element.classList.add('correct')
+
     } else {
         element.classList.add('wrong')
+
     }
 }
 
@@ -89,6 +99,9 @@ function clearStatusClass(element) {
 
 }
 
+function endQuiz(){
+    console.log('done')
+}
 
 const questions = [
     {
@@ -131,6 +144,8 @@ const questions = [
         ]
     }
 ]
+
+
 
 
 
