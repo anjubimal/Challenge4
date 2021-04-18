@@ -17,28 +17,44 @@ function startGame() {
     text.classList.add('hide')
     questionContainerElement.classList.remove('hide')
     questionCounter = 0
-    // function countDown(i) {
-    //     var int = setInterval(function () {
-    //         document.getElementById("timer").innerHTML = "Time: " + i;
-    //         i-- || clearInterval(int);  //if i is 0, then stop the interval
-    //     }, 1000);
-    // }
-    // countDown(73);
-    
-}
 
 
-answerButtonsElement.addEventListener('click', () => {
-    if (questions.length > questionCounter) {
-        setNextQuestion() //only call this if there's another question!
-        questionCounter++
-    } else {
-        endQuiz() //the last question has been answered. 
-        //we just have to write this function to handle the end-of-quiz logic!
+    function countDown(i) {
+        var int = setInterval(function () {
+            document.getElementById("timer").innerHTML = "Time: " + i;
+            i-- || clearInterval(int);
+        }, 1000);
     }
 
 
-})
+
+    answerButtonsElement.addEventListener('click', (event) => {
+        const button = event.target;
+        const isCorrect = button.dataset.correct;
+
+        if (questions.length > questionCounter) {
+            setNextQuestion() //only call this if there's another question!
+            questionCounter++
+            if (isCorrect) {
+                text_right.textContent = "Correct";
+                countDown();
+
+            } else {
+                text_right.textContent = "Incorrect"
+                countDown();
+            }
+        } else {
+            endQuiz() //the last question has been answered. 
+            //we just have to write this function to handle the end-of-quiz logic!
+        }
+
+
+    })
+}
+
+
+
+
 
 function setNextQuestion() {
     resetState()
