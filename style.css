@@ -72,3 +72,11 @@ p{
     display: none;
 }
 
+#username{
+    width: 55%;
+    padding: 25px;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 2rem;
+}
+

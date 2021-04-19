@@ -9,6 +9,7 @@ const answerButtonsElement = document.getElementById('answer-buttons')
 
 
 startButton.addEventListener('click', startGame)
+var timeLeft = 60 //this will set our GLOBAL timeLeft variable at 60 seconds.
 
 
 function startGame() {
@@ -19,13 +20,14 @@ function startGame() {
     questionCounter = 0
 
 
-    function countDown(i) {
-        var int = setInterval(function () {
-            document.getElementById("timer").innerHTML = "Time: " + i;
-            i-- || clearInterval(int);
-        }, 1000);
-    }
-
+    var int = setInterval(function () {
+        if (startGame = true) {
+            document.getElementById("timer").innerHTML = "Time: " + timeLeft;
+            timeLeft--
+        } if(timeLeft == -1){
+            clearInterval(int)
+        }
+    }, 500);
 
 
     answerButtonsElement.addEventListener('click', (event) => {
@@ -36,12 +38,16 @@ function startGame() {
             setNextQuestion() //only call this if there's another question!
             questionCounter++
             if (isCorrect) {
-                text_right.textContent = "Correct";
-                countDown();
+                text_right.textContent = "Correct"
+                timeLeft = timeLeft+10
+                
+
 
             } else {
                 text_right.textContent = "Incorrect"
-                countDown();
+                timeLeft = timeLeft-10
+                
+                
             }
         } else {
             endQuiz() //the last question has been answered. 
@@ -51,9 +57,6 @@ function startGame() {
 
     })
 }
-
-
-
 
 
 function setNextQuestion() {
@@ -116,7 +119,8 @@ function clearStatusClass(element) {
 }
 
 function endQuiz(){
-    console.log('done')
+    localStorage.setItem('score', timeLeft)
+    return window.location.assign('/end.html')
 }
 
 const questions = [
