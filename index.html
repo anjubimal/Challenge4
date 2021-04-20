@@ -13,19 +13,6 @@
 
 <body>
     <div class="container">
-        <div id="question-container" class="hide">
-            <div id="question" class="question">Question</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
-            </div>
-
-        </div>
-        <div id="correctness"></div>
-        <div id="timer" class="timer">Time: 60</div>
-        <div><a href=/highscores.html id="highscore">High Scores</a></div>
         <h1 id=heading>Coding Quiz Challenge</h1>
         <p id=text>
             <br>Try to answer the following code-related questions within the time limit.</br>
@@ -35,7 +22,40 @@
         <div class="controls">
             <button id="start-btn" class="start-btn btn">Start</button>
         </div>
+
+
+        <div id="question-container" class="hide">
+            <div id="question" class="question">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+            <div id="correctness"></div>
+            <div id="timer" class="timer">Time: 60</div>
+            <div><a href=/highscores.html id="highscore">High Scores</a></div>
+        </div>
+
+    
     </div>
+
+
+    <div id="end" class="container-end hide">
+        <div class="flex-center flex-column"></div>
+        <h1 id="finalScore">0</h1>
+        <!-- <form class="end-form-container"> -->
+        <h2 id="end-text">Enter your name below to save your score!</h2>
+        <input type="text" name="name" id="username" placeholder="Enter your name">
+        <button class="btn" id="saveScoreBtn" type="submit">Save</button>
+
+
+        <h2>High Scores</h2>
+        <ol id="highScore" class="hide"></ol>
+        <!-- </form> -->
+    </div>
+
+
 
 
 </body>

@@ -5,6 +5,10 @@ const text_right = document.getElementById('correctness')
 const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+const end = document.getElementById('end')
+const score = document.getElementById('highScore')
+const username = document.querySelector('#username')
+const saveScore = document.querySelector('#saveScoreBtn')
 
 
 
@@ -119,9 +123,58 @@ function clearStatusClass(element) {
 }
 
 function endQuiz(){
-    localStorage.setItem('score', timeLeft)
-    return window.location.assign('/end.html')
+
+    questionContainerElement.classList.add("hide")
+    score.classList.remove("hide")
+    end.classList.remove("hide")
+    
+
+    // localStorage.setItem('score', timeLeft)
+    // return window.location.assign("./end.html")
 }
+
+function scoreStorage() {
+    console.log('this has been clicked')
+    var userInitials = username.value.trim()
+
+    var getHighScores = JSON.parse(window.localStorage.getItem("highscores")) || []
+
+    var userScore = {
+        score: timeLeft,
+        name: userInitials
+    }
+
+    getHighScores.push(userScore)
+    window.localStorage.setItem("highscores", JSON.stringify(getHighScores))
+
+    
+
+}
+
+function showScores() {
+
+    var getHighScores = JSON.parse(window.localStorage.getItem("highscores")) || []
+    getHighScores.sort(function(a,b) {
+        return b.score - a.score
+    })
+
+    getHighScores.forEach(function (score) {
+        var scoreItem = document.createElement("li")
+
+
+        scoreItem.textContent = score.name + ": " + score.score
+
+        var parentList = document.getElementById("highScore")
+        parentList.appendChild(scoreItem)
+    })
+
+    
+}
+
+showScores()
+saveScore.onclick = scoreStorage
+
+
 
 const questions = [
     {
